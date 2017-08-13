@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ItunesFinder</string>
+    <string name="search_hint">song name</string>
 </resources>
