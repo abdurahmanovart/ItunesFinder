@@ -9,19 +9,19 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class ApiClient {
     public static final String BASE_URL = "https://itunes.apple.com/";
-    private static Retrofit mRetrofit = null;
+    private static Retrofit sRetrofit = null;
 
-    private ApiClient(){
+    private ApiClient() {
         throw new IllegalStateException("can't create object");
     }
 
-    public static Retrofit getClient(){
-        if(mRetrofit==null){
-            mRetrofit = new Retrofit.Builder()
+    public static Retrofit getClient() {
+        if (sRetrofit == null) {
+            sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
         }
-        return mRetrofit;
+        return sRetrofit;
     }
 }

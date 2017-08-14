@@ -20,7 +20,7 @@ public class TracksResponse {
 
     private List<Track> mTracks;
 
-    public TracksResponse(){
+    public TracksResponse() {
         //Empty constructor needed by Jackson
     }
 
