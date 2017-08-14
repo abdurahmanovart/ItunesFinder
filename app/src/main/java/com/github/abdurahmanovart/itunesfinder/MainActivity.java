@@ -2,16 +2,25 @@ package com.github.abdurahmanovart.itunesfinder;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener{
+import com.github.abdurahmanovart.itunesfinder.bean.TracksResponse;
+import com.github.abdurahmanovart.itunesfinder.net.ApiClient;
+import com.github.abdurahmanovart.itunesfinder.net.TrackService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
 
     private Toolbar mToolbar;
 
@@ -48,16 +57,35 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setSupportActionBar(mToolbar);
     }
 
-    private void startFragment(String query){
+    private void getDataFromServer(String query) {
+        TrackService service = ApiClient.getClient().create(TrackService.class);
+        Call<TracksResponse> responseCall = service.getTracks(query);
+
+        responseCall.enqueue(new Callback<TracksResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TracksResponse> call, @NonNull Response<TracksResponse> response) {
+                TracksResponse tracksResponse = response.body();
+                if (tracksResponse != null)
+                    Log.d("MainActivity", tracksResponse.toString());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TracksResponse> call, @NonNull Throwable t) {
+                Log.e("MainActivity", "failure " + t.getMessage());
+            }
+        });
+    }
+
+    private void startFragment(String query) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container,MainFragment.newInstance(query, null))
+        transaction.replace(R.id.container, MainFragment.newInstance(query, null))
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
     public void onFragmentInteraction(String string) {
-        Toast.makeText(getApplicationContext(), "here we are "+ string,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "here we are " + string, Toast.LENGTH_LONG).show();
     }
 }
