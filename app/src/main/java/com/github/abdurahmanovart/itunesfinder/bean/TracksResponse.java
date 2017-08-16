@@ -8,13 +8,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.Objects;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Abdurakhmanov on 13.08.17
  */
 
-public class TracksResponse {
+public class TracksResponse implements Serializable{
 
     private int mTrackCount;
 
