@@ -87,13 +87,13 @@ public class Track implements Serializable {
     }
 
     @NonNull
-    @JsonGetter("coverUrl")
+    @JsonGetter("artworkUrl100")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCoverUrl() {
         return mCoverUrl;
     }
 
-    @JsonSetter("coverUrl")
+    @JsonSetter("artworkUrl100")
     public void setCoverUrl(@NonNull String coverUrl) {
         mCoverUrl = coverUrl;
     }

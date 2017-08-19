@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Main Fragment to show list of items
  */
-public class MainFragment extends Fragment implements TrackClickListener{
+public class MainFragment extends Fragment implements TrackClickListener {
 
     private static final String EXTRA_TRACKS_RESPONSE = "extra_tracks_response";
 
@@ -60,7 +60,7 @@ public class MainFragment extends Fragment implements TrackClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTracksResponse = (TracksResponse)getArguments().getSerializable(EXTRA_TRACKS_RESPONSE);
+            mTracksResponse = (TracksResponse) getArguments().getSerializable(EXTRA_TRACKS_RESPONSE);
         }
         mAdapter = new TrackAdapter(mTracksResponse, this);
     }
