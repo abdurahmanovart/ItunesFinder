@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 public class MainFragment extends Fragment implements TrackClickListener {
 
     private static final String EXTRA_TRACKS_RESPONSE = "extra_tracks_response";
+    public static final String TAG = MainFragment.class.getSimpleName();
 
     private TracksResponse mTracksResponse;
     private OnItemClickListener mListener;

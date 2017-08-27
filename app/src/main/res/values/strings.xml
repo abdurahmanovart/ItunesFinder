@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ItunesFinder</string>
     <string name="search_hint">song name</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

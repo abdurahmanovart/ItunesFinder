@@ -10,13 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.github.abdurahmanovart.itunesfinder.bean.Track;
 import com.github.abdurahmanovart.itunesfinder.bean.TracksResponse;
 import com.github.abdurahmanovart.itunesfinder.net.ApiClient;
 import com.github.abdurahmanovart.itunesfinder.net.TrackService;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,22 +25,32 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements MainFragment.OnItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private Toolbar mToolbar;
+
+    @BindView(R.id.search)
+    SearchView mSearchView;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initToolbar();
+        ButterKnife.bind(this);
+        setToolbar();
         createSearchView();
     }
 
-    private void createSearchView() {
-        SearchView SearchView = (SearchView) findViewById(R.id.search);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+    @Override
+    public void onItemClick(Track track) {
+        startActivity(TrackDetailActivity.createExplicitIntent(this, track));
+    }
 
-        SearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    private void createSearchView() {
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 getDataFromServer(query);
@@ -53,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         });
     }
 
-    private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void setToolbar() {
         setSupportActionBar(mToolbar);
     }
 
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
 
             @Override
             public void onFailure(@NonNull Call<TracksResponse> call, @NonNull Throwable t) {
-                Log.e(TAG, "failure "+t.getMessage());
+                Log.e(TAG, "failure " + t.getMessage());
             }
         });
     }
@@ -81,12 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.container, MainFragment.newInstance(response))
-                .addToBackStack(null)
+                .addToBackStack(MainFragment.TAG)
                 .commit();
-    }
-
-    @Override
-    public void onItemClick(Track track) {
-        Toast.makeText(getApplicationContext(), "here we are " + track.getTrackPreviewUrl(), Toast.LENGTH_LONG).show();
     }
 }
