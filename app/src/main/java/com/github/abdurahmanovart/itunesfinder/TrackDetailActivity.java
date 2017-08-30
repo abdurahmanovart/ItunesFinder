@@ -59,6 +59,13 @@ public class TrackDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        MusicPlayerFragment fragment = (MusicPlayerFragment) mFragmentManager.findFragmentByTag(MusicPlayerFragment.TAG);
+        fragment.onBackPressed();
+    }
+
     private void setDataToViews() {
         Picasso.with(this).load(mTrack.getCoverUrl()).into(mCoverImageView);
         mArtistTextView.setText(mTrack.getArtistName());
@@ -74,8 +81,8 @@ public class TrackDetailActivity extends AppCompatActivity {
     private void fillMusicPlayerFragment() {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.music_player_container,
-                MusicPlayerFragment.newInstance(mTrack.getTrackPreviewUrl()))
-                .commit();
+                MusicPlayerFragment.newInstance(mTrack.getTrackPreviewUrl()),MusicPlayerFragment.TAG)
+        .commit();
     }
 
     private void fillArtistProfileFragment() {
