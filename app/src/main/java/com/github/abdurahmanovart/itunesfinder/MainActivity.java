@@ -10,14 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.abdurahmanovart.itunesfinder.bean.Track;
 import com.github.abdurahmanovart.itunesfinder.bean.TracksResponse;
 import com.github.abdurahmanovart.itunesfinder.net.ApiClient;
 import com.github.abdurahmanovart.itunesfinder.net.TrackService;
+import com.github.abdurahmanovart.itunesfinder.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,10 +56,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getDataFromServer(query);
+                if(Utils.hasConnection(getApplicationContext())) {
+                    getDataFromServer(query);
+                } else {
+                    showNoConnectionMessage();
+                }
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -85,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
                 Log.e(TAG, "failure " + t.getMessage());
             }
         });
+    }
+
+    private void showNoConnectionMessage() {
+        Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_LONG).show();
     }
 
     private void startFragment(TracksResponse response) {
