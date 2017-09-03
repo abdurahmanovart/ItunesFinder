@@ -75,7 +75,7 @@ public class TrackDetailActivity extends AppCompatActivity {
     }
 
     public void getDataFromIntent() {
-        mTrack = (Track) getIntent().getExtras().getSerializable(EXTRA_TRACK);
+        mTrack = (Track) getIntent().getExtras().getParcelable(EXTRA_TRACK);
     }
 
     private void fillMusicPlayerFragment() {

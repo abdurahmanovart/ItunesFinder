@@ -1,5 +1,7 @@
 package com.github.abdurahmanovart.itunesfinder.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -8,14 +10,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.Objects;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Abdurakhmanov on 13.08.17
  */
 
-public class TracksResponse implements Serializable{
+public class TracksResponse implements Parcelable {
+
+    public static final ClassCreator CREATOR = new ClassCreator();
 
     private int mTrackCount;
 
@@ -25,16 +29,22 @@ public class TracksResponse implements Serializable{
         //Empty constructor needed by Jackson
     }
 
+    protected TracksResponse(Parcel in) {
+        mTrackCount = in.readInt();
+        mTracks = new ArrayList<>();
+        in.readList(mTracks, null);
+    }
+
     @JsonGetter("resultCount")
     public int getTrackCount() {
         return mTrackCount;
     }
 
-
     @JsonSetter("resultCount")
     public void setTrackCount(int trackCount) {
         mTrackCount = trackCount;
     }
+
 
     @NonNull
     @JsonGetter("results")
@@ -71,5 +81,30 @@ public class TracksResponse implements Serializable{
                 .add("mTrackCount", mTrackCount)
                 .add("mTracks", mTracks)
                 .toString();
+    }
+
+    @JsonIgnore
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mTrackCount);
+        dest.writeList(mTracks);
+    }
+
+    @JsonIgnore
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    public static final class ClassCreator implements Creator<TracksResponse> {
+
+        @Override
+        public TracksResponse createFromParcel(Parcel in) {
+            return new TracksResponse(in);
+        }
+        @Override
+        public TracksResponse[] newArray(int size) {
+            return new TracksResponse[size];
+        }
+
     }
 }
