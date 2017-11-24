@@ -81,8 +81,8 @@ public class TrackDetailActivity extends AppCompatActivity {
     private void fillMusicPlayerFragment() {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.music_player_container,
-                MusicPlayerFragment.newInstance(mTrack.getTrackPreviewUrl()),MusicPlayerFragment.TAG)
-        .commit();
+                MusicPlayerFragment.newInstance(mTrack.getTrackPreviewUrl()), MusicPlayerFragment.TAG)
+                .commit();
     }
 
     private void fillArtistProfileFragment() {

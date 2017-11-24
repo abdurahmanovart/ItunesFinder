@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * @author Abdurakhmanov on 14.08.17
  */
 
-public class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TrackClickListener mClickListener;
 

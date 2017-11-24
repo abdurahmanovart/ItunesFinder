@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import java.util.ArrayList;
@@ -77,11 +78,21 @@ public class TracksResponse implements Parcelable {
     @JsonIgnore
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("mTrackCount", mTrackCount)
                 .add("mTracks", mTracks)
                 .toString();
     }
+
+
+    //    @JsonIgnore
+//    @Override
+//    public String toString() {
+//        return Objects.toStringHelper(this)
+//                .add("mTrackCount", mTrackCount)
+//                .add("mTracks", mTracks)
+//                .toString();
+//    }
 
     @JsonIgnore
     @Override
@@ -95,12 +106,14 @@ public class TracksResponse implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
     public static final class ClassCreator implements Creator<TracksResponse> {
 
         @Override
         public TracksResponse createFromParcel(Parcel in) {
             return new TracksResponse(in);
         }
+
         @Override
         public TracksResponse[] newArray(int size) {
             return new TracksResponse[size];

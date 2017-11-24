@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
@@ -164,7 +165,7 @@ public class Track implements Parcelable {
     @JsonIgnore
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("mArtistName", mArtistName)
                 .add("mTrackName", mTrackName)
                 .add("mArtistViewUrl", mArtistViewUrl)
@@ -173,6 +174,21 @@ public class Track implements Parcelable {
                 .add("mTrackPrice", mTrackPrice)
                 .toString();
     }
+
+    //    @JsonIgnore
+//    @Override
+//    public String toString() {
+//        return Objects.toStringHelper(this)
+//                .add("mArtistName", mArtistName)
+//                .add("mTrackName", mTrackName)
+//                .add("mArtistViewUrl", mArtistViewUrl)
+//                .add("mTrackPreviewUrl", mTrackPreviewUrl)
+//                .add("mCoverUrl", mCoverUrl)
+//                .add("mTrackPrice", mTrackPrice)
+//                .toString();
+//    }
+//
+
 
     public static final class ClassCreator implements Creator<Track> {
         @Override
