@@ -1,8 +1,6 @@
 package com.github.abdurahmanovart.itunesfinder.dagger;
 
-import android.content.Context;
-
-import com.github.abdurahmanovart.itunesfinder.MainActivity;
+import com.github.abdurahmanovart.itunesfinder.model.MainModel;
 
 import javax.inject.Singleton;
 
@@ -16,5 +14,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class})
 public interface NetComponent {
+    void inject(MainModel model);
+
 
 }

@@ -1,5 +1,8 @@
 package com.github.abdurahmanovart.itunesfinder.dagger;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import com.github.abdurahmanovart.itunesfinder.net.TrackService;
 
 import javax.inject.Singleton;
@@ -25,13 +28,13 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Converter.Factory providesJacksonConverterFactory(){
+    Converter.Factory providesJacksonConverterFactory() {
         return JacksonConverterFactory.create();
     }
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Converter.Factory factory){
+    Retrofit provideRetrofit(Converter.Factory factory) {
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(factory)
@@ -40,7 +43,13 @@ public class NetModule {
 
     @Provides
     @Singleton
-    TrackService provideTrackService(Retrofit retrofit){
+    TrackService provideTrackService(Retrofit retrofit) {
         return retrofit.create(TrackService.class);
+    }
+
+    @Provides
+    @Singleton
+    ConnectivityManager providesConnectivityManager(Context context) {
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }
