@@ -45,12 +45,7 @@ public class MainFragment extends Fragment implements TrackClickListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnItemClickListener) {
-            mListener = (OnItemClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnItemClickListener");
-        }
+        mListener = (OnItemClickListener)getActivity();
     }
 
     @Override

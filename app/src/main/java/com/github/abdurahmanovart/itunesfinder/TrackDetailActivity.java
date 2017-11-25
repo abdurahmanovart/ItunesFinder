@@ -63,7 +63,6 @@ public class TrackDetailActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         MusicPlayerFragment fragment = (MusicPlayerFragment) mFragmentManager.findFragmentByTag(MusicPlayerFragment.TAG);
-        fragment.onBackPressed();
     }
 
     private void setDataToViews() {

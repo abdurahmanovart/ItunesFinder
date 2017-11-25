@@ -26,10 +26,10 @@ public class ArtistProfileFragment extends Fragment {
 
     private String mProfileUrl;
 
-    public static ArtistProfileFragment newInstance(String param1) {
+    public static ArtistProfileFragment newInstance(String profileUrl) {
         ArtistProfileFragment fragment = new ArtistProfileFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_PROFILE_URL, param1);
+        args.putString(EXTRA_PROFILE_URL, profileUrl);
         fragment.setArguments(args);
         return fragment;
     }
